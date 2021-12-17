@@ -13,14 +13,14 @@ console.log(document.querySelector('.guess').value);
 document.querySelector('.guess').value = 23;
 */
 let score = 20;
+let highscore = 0;
 
 let scoreSubtract = function(){
     score--;
     document.querySelector('.score').textContent = score;
 };
 
-const number = Math.trunc(Math.random() * 20) + 1;
-document.querySelector('.number').textContent = '??';
+let number = Math.trunc(Math.random() * 20) + 1;
 
 document.querySelector('.check').addEventListener('click', function() {
     const guess = Number(document.querySelector('.guess').value);
@@ -33,7 +33,10 @@ document.querySelector('.check').addEventListener('click', function() {
         //when the player wins
         document.querySelector('.message').textContent = 'Correct guess!';
         document.querySelector('.number').textContent = number;
-        document.querySelector('.highscore').textContent = score;
+        if(score > highscore) {
+            highscore = score;
+            document.querySelector('.highscore').textContent = score;
+        }
 
         document.querySelector('body').style.backgroundColor = '#60b347';
 
@@ -55,3 +58,18 @@ document.querySelector('.check').addEventListener('click', function() {
 
 });
 
+//event that the again button gets pressed
+document.querySelector('.again').addEventListener('click', function(){
+    document.querySelector('.number').textContent = '?';
+    document.querySelector('.guess').value = '';
+    document.querySelector('.message').textContent = 'Start guessing...';
+
+    score = 20;
+    document.querySelector('.score').textContent = 20;
+
+    number = Math.trunc(Math.random() * 20 + 1);
+
+    document.querySelector('body').style.backgroundColor = '#222';
+    document.querySelector('.number').style.width = '15rem';
+
+});
